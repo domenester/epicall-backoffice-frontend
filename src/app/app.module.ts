@@ -6,19 +6,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
-import { AuthenticationService } from './services/authentication/authentication.service';
+import { AuthenticationService, AlertService } from './services';
 
 import { AuthGuard } from './auth/auth.guard';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,7 @@ import { HomeComponent } from './home/home.component';
   ],
   providers: [
     AuthenticationService,
+    AlertService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

@@ -1,1 +1,2 @@
-export * from './authentication/authentication.service';
+export * from './authentication.service';
+export * from './alert.service';
