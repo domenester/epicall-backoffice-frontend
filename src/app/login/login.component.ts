@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService, AlertService } from '../services';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) {}
+        private alertService: AlertService,
+        private modalService: NgbModal) {}
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -32,13 +35,13 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
+    openModal() {
+      this.modalService.open(ForgotPasswordComponent, { size: 'sm' });
+    }
     onSubmit() {
         this.submitted = true;
-
-        // stop here if form is invalid
         if (this.loginForm.invalid) {
             return;
         }
@@ -51,8 +54,6 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                  console.log('error', error);
-                  console.log('error', error.error.message);
                     this.alertService.error(error.error.message);
                     this.loading = false;
                 });
