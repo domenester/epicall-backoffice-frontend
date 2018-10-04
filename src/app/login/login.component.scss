@@ -1,8 +1,5 @@
+@import '../../styles/variables.scss';
 
-app-login {
-  div.login-content {
-    width: 300px;
-    margin: auto;
-    margin-top: 8%;
-  }
+div.middle-box {
+  @extend %middle-box;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AuthenticationService, AlertService, PasswordService } from '../services';
 
 @Component({
@@ -13,6 +13,7 @@ export class ResetPasswordComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
+  token = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,6 +28,7 @@ export class ResetPasswordComponent implements OnInit {
     this.form = this.formBuilder.group({
       password: ['', Validators.required],
     });
+    this.token = this.route.snapshot.queryParams['token'];
   }
 
   get f() { return this.form.controls; }
@@ -35,13 +37,14 @@ export class ResetPasswordComponent implements OnInit {
     this.submitted = true;
     if (this.form.invalid) { return; }
     this.loading = true;
-    this.passwordService.reset( this.f.password.value, this.route.snapshot.params['token'])
+    this.passwordService.reset( this.f.password.value, this.token)
     .subscribe(
-      res => this.router.navigate([
-        '/login',
-        { queryParams:
-          { passwordReset: res.message }
-        }]),
+      res => {
+        this.router.navigate(
+          ['/login'],
+          { queryParams: { message: res.message } }
+        );
+      },
       error => {
         this.alertService.error(error.error.message);
         this.loading = false;
