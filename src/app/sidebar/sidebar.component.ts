@@ -12,8 +12,10 @@ export class SidebarComponent implements OnInit {
   isLogged: boolean;
   profilePhoto: string;
   username: string;
+  popoverOpen: boolean;
 
   constructor(private route: Router) {
+    this.popoverOpen = false;
     route.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (event.url === '/login') { return this.isLogged = false; }

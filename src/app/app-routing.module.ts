@@ -4,10 +4,12 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'forgotPassword', component: ResetPasswordComponent },
+  { path: 'changePassword', component: ChangePasswordComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' }
 ];

@@ -18,6 +18,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     AlertComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    SidebarComponent
+    SidebarComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

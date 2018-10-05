@@ -1,14 +1,26 @@
-<nav>
-  <ul>
-    <li>
-        Epicall Backoffice
+<ng-template #popContent>
+  <ul class="popover-ui">
+    <li class="popover-li text-center">
+      <a class="popover-a" [routerLink] = "['/changePassword']">
+        Trocar senha
+      </a>
     </li>
+    <li class="popover-li text-center">
+      Trocar Foto
+    </li>
+  </ul>
+</ng-template>
+
+<nav>
+  <ul class="nav-ui">
     <li>
-      <img [src]="profilePhoto"/>
-      {{username}}
-        <a routerLink="posts">
-          <i class="material-icons">settings</i>
-        </a>
-      </li>
+      <img src="assets/images/logo-itau.png" class="logo"/>
+      Epicall Backoffice
+    </li>
+    <li class="text-center">
+      <img [src]="profilePhoto" (click)="popoverOpen = true" class="profile-photo row"/>
+      <div class="w-100 text-center">{{username}}</div>
+      <i class="material-icons" placement="right" [ngbPopover]="popContent">settings</i>
+    </li>
   </ul>
 </nav>

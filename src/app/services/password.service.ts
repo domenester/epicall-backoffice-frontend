@@ -14,4 +14,14 @@ export class PasswordService {
     reset(password: string, token: string = '') {
         return this.http.post<any>(`${config.url}/password/reset`, { password, token });
     }
+
+    change(password: string, newPassword: string) {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      return this.http.post<any>(`${config.url}/password/change`, {
+        password,
+        newPassword,
+        username: currentUser.username,
+        userId: currentUser.id
+      });
+    }
 }

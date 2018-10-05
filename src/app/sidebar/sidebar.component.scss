@@ -1,32 +1,58 @@
 $material-icons-font-path: '~material-icons/iconfont/';
 @import 'material-icons/iconfont/material-icons.scss';
+@import '../../styles/variables.scss';
+
+@font-face {
+  @include font-face("../../");
+}
 
 nav {
   background: #2D2E2E;
   height: 100%;
   color: #fff;
+  padding: 10px;
+  
   ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+}
 
-      li {
+ul.nav-ui{
+  li:not(.popover-li) {
+      margin-top: 30px;
+      a:not(.popover-a) {
+          color: #fff;
+          padding: 10px;
+          display: block;
+      }
 
-          a {
-              color: #fff;
-              padding: 20px;
-              display: block;
-          }
+      .activated {
+          background-color: #00a8ff;
+      }
 
-          .activated {
-              background-color: #00a8ff;
-          }
+      .profile-photo {
+        width: 90px;
+        border-radius: 50%;
+        margin: auto;
+      }
 
-          img {
-            width: 50px;
-            border-radius: 50%;
-          }
+      .logo {
+        width: 25px;
       }
   }
-  
+}
+
+.popover-body {
+  font-family: 'Century Gothic';
+  ul.popover-ui {
+    li.popover-li {
+      cursor: pointer;
+      margin-top: 10px;
+      a.popover-a { 
+        color: #2D2E2E;
+      }
+    }
+  }
 }
