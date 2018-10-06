@@ -23,6 +23,7 @@ ul.nav-ui{
   li:not(.popover-li) {
       margin-top: 30px;
       a:not(.popover-a) {
+          text-decoration: none;
           color: #fff;
           padding: 10px;
           display: block;
@@ -39,20 +40,28 @@ ul.nav-ui{
       }
 
       .logo {
-        width: 25px;
+        width: 40px;
+      }
+
+      img {
+        margin: auto;
+      }
+
+      i {
+        cursor: pointer;
       }
   }
 }
 
-.popover-body {
+ul.popover-ui {
   font-family: 'Century Gothic';
-  ul.popover-ui {
-    li.popover-li {
-      cursor: pointer;
-      margin-top: 10px;
-      a.popover-a { 
-        color: #2D2E2E;
-      }
+  color: #2D2E2E;
+  li.popover-li {
+    cursor: pointer;
+    margin: 10px 0 10px 0;
+    a.popover-a {
+      text-decoration: none;
+      color: #2D2E2E;
     }
   }
 }

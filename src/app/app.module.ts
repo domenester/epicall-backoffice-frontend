@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 import { AuthenticationService, AlertService, PasswordService } from './services';
 
@@ -29,7 +30,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     ForgotPasswordComponent,
     ResetPasswordComponent,
     SidebarComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,

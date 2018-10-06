@@ -1,11 +1,11 @@
 <ng-template #popContent>
   <ul class="popover-ui">
-    <li class="popover-li text-center">
+    <li class="popover-li">
       <a class="popover-a" [routerLink] = "['/changePassword']">
         Trocar senha
       </a>
     </li>
-    <li class="popover-li text-center">
+    <li class="popover-li">
       Trocar Foto
     </li>
   </ul>
@@ -14,13 +14,20 @@
 <nav>
   <ul class="nav-ui">
     <li>
-      <img src="assets/images/logo-itau.png" class="logo"/>
-      Epicall Backoffice
+      <a [routerLink] = "['/']" class="text-center">
+        <img src="assets/images/logo-itau.png" class="logo row"/>
+        Epicall Backoffice
+      </a>
     </li>
     <li class="text-center">
       <img [src]="profilePhoto" (click)="popoverOpen = true" class="profile-photo row"/>
       <div class="w-100 text-center">{{username}}</div>
       <i class="material-icons" placement="right" [ngbPopover]="popContent">settings</i>
+    </li>
+    <li>
+      <a [routerLink] = "['/login']" class="text-center">
+        Logout
+      </a>
     </li>
   </ul>
 </nav>
