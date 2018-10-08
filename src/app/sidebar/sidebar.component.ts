@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService, AlertService } from '../services';
+import { AuthenticationService, AlertService, FileUploadService } from '../services';
 import { Router, NavigationStart } from '@angular/router';
 import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { api as apiConfig } from '../config/configs';
@@ -15,13 +15,12 @@ export class SidebarComponent implements OnInit {
   profilePhoto: string;
   username: string;
   popoverOpen: boolean;
-  public uploader: FileUploader = new FileUploader(
-    {url: `${apiConfig.url}/`, itemAlias: 'photo'}
-  );
+  uploader: FileUploader;
 
   constructor(
     private route: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private fileUploadService: FileUploadService
   ) {
     this.popoverOpen = false;
     route.events.subscribe((event) => {
@@ -30,6 +29,14 @@ export class SidebarComponent implements OnInit {
         this.isLogged = localStorage.getItem('currentUser') ? true : false;
       }
     });
+    fileUploadService.initializaUploader(
+      '/user/uploadProfilePicture', 'avatar', true
+    );
+    this.uploader = fileUploadService.getUploader();
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      this.profilePhoto = `${this.profilePhoto.split('?')[0]}?changed=true`;
+      // document.getElementById('profilePicSelect').value = '';
+    };
   }
 
   ngOnInit() {
@@ -37,11 +44,9 @@ export class SidebarComponent implements OnInit {
     try { currentUser = JSON.parse(currentUser); } catch (err) {}
     this.profilePhoto = (currentUser as any).profilePhoto;
     this.username = `${(currentUser as any).first_name} ${(currentUser as any).last_name}`;
-
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-        console.log('ImageUpload:uploaded:', item, status, response);
-    };
   }
 
+  triggerFileSelect() {
+    document.getElementById('profilePicSelect').click();
+  }
 }

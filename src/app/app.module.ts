@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 
-import { AuthenticationService, AlertService, PasswordService } from './services';
+import { AuthenticationService, AlertService, FileUploadService, PasswordService } from './services';
 
 import { AuthGuard } from './auth/auth.guard';
 
@@ -45,6 +45,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     AuthenticationService,
     AlertService,
     AuthGuard,
+    FileUploadService,
     PasswordService
   ],
   entryComponents: [

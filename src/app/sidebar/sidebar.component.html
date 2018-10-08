@@ -5,13 +5,14 @@
         Trocar senha
       </a>
     </li>
-    <li class="popover-li">
+    <li class="popover-li" (click)="triggerFileSelect()">
       Trocar Foto
     </li>
   </ul>
 </ng-template>
 
 <nav>
+  <input id="profilePicSelect" class="d-none" accept="image/*" type="file" name="photo" ng2FileSelect [uploader]="uploader" />
   <ul class="nav-ui">
     <li>
       <a [routerLink] = "['/']" class="text-center">
