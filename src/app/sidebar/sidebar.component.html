@@ -12,7 +12,7 @@
 </ng-template>
 
 <nav>
-  <input id="profilePicSelect" class="d-none" accept="image/*" type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+  <input #profilePictureSelect class="d-none" accept="image/*" type="file" name="photo" ng2FileSelect [uploader]="uploader" />
   <ul class="nav-ui">
     <li>
       <a [routerLink] = "['/']" class="text-center">
@@ -26,8 +26,13 @@
       <i class="material-icons" placement="right" [ngbPopover]="popContent">settings</i>
     </li>
     <li>
-      <a [routerLink] = "['/login']" class="text-center">
-        Logout
+      <a [routerLink] = "['/user/list']">
+        Usuários <i class="material-icons float-right" placement="right"> person </i>
+      </a>
+    </li>
+    <li>
+      <a [routerLink] = "['/login']">
+        Logout <i class="material-icons float-right" placement="right"> exit_to_app </i>
       </a>
     </li>
   </ul>

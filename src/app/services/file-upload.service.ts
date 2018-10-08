@@ -22,7 +22,8 @@ export class FileUploadService {
         itemAlias,
         autoUpload,
         headers: [
-          { name: 'userId', value: currentUser.id }
+          { name: 'userId', value: currentUser.id },
+          { name: 'cache-control', value: 'no-store' }
         ]
       });
       this.uploader.onBeforeUploadItem = (file) => {

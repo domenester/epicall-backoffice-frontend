@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthenticationService, AlertService, FileUploadService } from '../services';
 import { Router, NavigationStart } from '@angular/router';
 import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
@@ -10,6 +10,9 @@ import { api as apiConfig } from '../config/configs';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+
+  @ViewChild('profilePictureSelect')
+  profilePictureSelectEl: ElementRef;
 
   isLogged: boolean;
   profilePhoto: string;
@@ -34,8 +37,8 @@ export class SidebarComponent implements OnInit {
     );
     this.uploader = fileUploadService.getUploader();
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      this.profilePhoto = `${this.profilePhoto.split('?')[0]}?changed=true`;
-      // document.getElementById('profilePicSelect').value = '';
+      this.profilePhoto = `${this.profilePhoto.split('?')[0]}?changedAt=${(new Date()).getTime()}`;
+      this.profilePictureSelectEl.nativeElement.value = '';
     };
   }
 
@@ -47,6 +50,6 @@ export class SidebarComponent implements OnInit {
   }
 
   triggerFileSelect() {
-    document.getElementById('profilePicSelect').click();
+    this.profilePictureSelectEl.nativeElement.click();
   }
 }

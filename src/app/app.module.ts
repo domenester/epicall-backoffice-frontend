@@ -20,6 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { UserListComponent } from './user/list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     ResetPasswordComponent,
     SidebarComponent,
     ChangePasswordComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    Ng2SmartTableModule,
     NgbModule
   ],
   providers: [
