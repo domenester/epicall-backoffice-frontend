@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, AlertService } from '../../services';
 import { LocalDataSource } from 'ng2-smart-table';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserHandleComponent } from '../handle/user-handle.component';
 
 @Component({
   selector: 'app-user-list',
@@ -16,7 +18,8 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private modalService: NgbModal) {
       userService.list().subscribe(
         users => {
           console.log('users', users);
@@ -49,6 +52,15 @@ export class UserListComponent implements OnInit {
       { field: 'first_name', search: query },
       { field: 'email', search: query  }
     ], false);
+  }
+
+  addUser() {
+    this.modalService.open(UserHandleComponent, { size: 'lg' });
+  }
+
+  onUserRowSelect(event) {
+    const activeModal = this.modalService.open(UserHandleComponent, { size: 'lg' });
+    activeModal.componentInstance.userToHandle = event.data;
   }
 
 }

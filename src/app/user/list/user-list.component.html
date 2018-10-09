@@ -1,10 +1,12 @@
 <div class="table-header text-center">
   <h2> Usuários </h2>
   <input #search class="row w-50 mt-2 mb-2 ml-auto mr-auto" type="text" placeholder="Pesquisar..." (keydown.enter)="onSearch(search.value)">
-  <button class="btn btn-success row"> + Novo Usuário </button>
+  <button (click)="addUser()" class="btn btn-success row"> + Novo Usuário </button>
 </div>
 
 <ng2-smart-table 
+    [ngClass]="'userListTable'"
     [settings]="tableSettings" 
-    [source]="source">
+    [source]="source"
+    (userRowSelect)="onUserRowSelect($event)">
 </ng2-smart-table>

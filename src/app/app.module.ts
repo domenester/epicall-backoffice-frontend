@@ -22,6 +22,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { UserListComponent } from './user/list/user-list.component';
+import { UserHandleComponent } from './user/handle/user-handle.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { UserListComponent } from './user/list/user-list.component';
     SidebarComponent,
     ChangePasswordComponent,
     FileSelectDirective,
-    UserListComponent
+    UserListComponent,
+    UserHandleComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { UserListComponent } from './user/list/user-list.component';
     UserService
   ],
   entryComponents: [
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    UserHandleComponent
   ],
   bootstrap: [AppComponent]
 })
