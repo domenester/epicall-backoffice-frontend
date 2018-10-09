@@ -29,6 +29,14 @@ ul.nav-ui{
           display: block;
       }
 
+      a:hover:not(.popover-a) {
+        background-color: #4a4a4a;
+      }
+
+      a:active:not(.popover-a) {
+        background-color: #616161;
+      }
+
       .activated {
           background-color: #00a8ff;
       }

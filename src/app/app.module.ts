@@ -23,6 +23,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { UserListComponent } from './user/list/user-list.component';
 import { UserHandleComponent } from './user/handle/user-handle.component';
+import { RecordComponent } from './record/record.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { UserHandleComponent } from './user/handle/user-handle.component';
     ChangePasswordComponent,
     FileSelectDirective,
     UserListComponent,
-    UserHandleComponent
+    UserHandleComponent,
+    RecordComponent
   ],
   imports: [
     BrowserModule,

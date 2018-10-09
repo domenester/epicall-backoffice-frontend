@@ -36,6 +36,7 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.tableSettings = {
       actions: false,
+      noDataMessage: 'Nenhum dado encontrado',
       columns: {
         username: { title: 'Username', filter: false },
         first_name: { title: 'Nome', filter: false },
