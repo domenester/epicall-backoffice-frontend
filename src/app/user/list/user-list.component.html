@@ -1,3 +1,10 @@
-<p>
-  user works!
-</p>
+<div class="table-header text-center">
+  <h2> Usuários </h2>
+  <input #search class="row w-50 mt-2 mb-2 ml-auto mr-auto" type="text" placeholder="Pesquisar..." (keydown.enter)="onSearch(search.value)">
+  <button class="btn btn-success row"> + Novo Usuário </button>
+</div>
+
+<ng2-smart-table 
+    [settings]="tableSettings" 
+    [source]="source">
+</ng2-smart-table>
