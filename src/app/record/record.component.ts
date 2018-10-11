@@ -44,7 +44,7 @@ export class RecordComponent implements OnInit {
     if (!query) { return this.source.reset(); }
 
     this.source.setFilter([
-      { field: 'participants', search: query },
+      { field: 'participants', search: query, filter: (p) => p[0].name },
       { field: 'type', search: query },
       { field: 'date', search: query  },
       { field: 'duration', search: query  }

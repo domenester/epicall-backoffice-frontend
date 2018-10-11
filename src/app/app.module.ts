@@ -25,7 +25,7 @@ import { UserListComponent } from './user/list/user-list.component';
 import { UserHandleComponent } from './user/handle/user-handle.component';
 import { RecordComponent } from './record/record.component';
 import { PlayerViewComponent } from './record/player-view/player-view.component';
-import { VideoModalComponent } from './record/player-view/video.modal';
+import { VideoModalComponent } from './record/player-view/modal/video.modal.component';
 
 @NgModule({
   declarations: [

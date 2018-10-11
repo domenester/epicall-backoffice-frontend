@@ -5,7 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-video-modal',
-  templateUrl: './video.modal.html',
+  templateUrl: './video.modal.component.html',
 })
 
 export class VideoModalComponent implements OnInit {

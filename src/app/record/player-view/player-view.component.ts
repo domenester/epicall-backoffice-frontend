@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { LocalDataSource, ViewCell, Cell } from 'ng2-smart-table';
 import * as moment from 'moment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { VideoModalComponent } from './video.modal';
+import { VideoModalComponent } from './modal/video.modal.component';
 
 @Component({
   selector: 'app-player-view',
