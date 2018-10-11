@@ -1,0 +1,9 @@
+<div class="text-center">
+  <audio *ngIf="type === 'audio'" controls>
+    <source src="{{url}}" type="audio/mp3">
+  </audio>
+  
+  <button *ngIf="type === 'video'" class="btn btn-primary" (click)="openVideo()">
+    Assistir
+  </button>
+</div>

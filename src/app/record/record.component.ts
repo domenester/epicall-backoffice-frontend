@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { AlertService, RecordService } from '../services';
+import { PlayerViewComponent } from './player-view/player-view.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { tableSettings } from './config/table-config';
 
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
-  styleUrls: ['./record.component.scss']
+  styleUrls: ['./record.component.scss'],
+  entryComponents: [ PlayerViewComponent ]
 })
 export class RecordComponent implements OnInit {
 
   records: any;
   loading = true;
-  tableSettings: object;
+  tableSettings: any;
   source: LocalDataSource;
 
   constructor(
@@ -34,41 +37,7 @@ export class RecordComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.tableSettings = {
-      actions: false,
-      noDataMessage: 'Nenhum dado encontrado',
-      columns: {
-        participants: {
-          title: 'Participantes',
-          filter: false,
-          valuePrepareFunction: (participants) => {
-            let output = '';
-            participants.forEach( (p, index) => {
-              if (index !== participants.length - 1) { return output += `${p.name} | `; }
-              return output += p.name;
-            });
-            return output;
-          }
-        },
-        type: { title: 'Tipo', filter: false },
-        date: {
-          title: 'Data',
-          filter: false,
-          valuePrepareFunction: (date) => moment(date).format('DD/MM/YYYY HH:mm:ss')
-        },
-        duration: { title: 'Duração', filter: false },
-        url: {
-          title: 'Executar',
-          filter: false,
-          type: 'html',
-          valuePrepareFunction: (url) => {
-            return `<audio controls>
-                      <source src="${url}" type="audio/mp3">
-                    </audio>`;
-          }
-        }
-      }
-    };
+    this.tableSettings = tableSettings();
   }
 
   onSearch(query: string = '') {

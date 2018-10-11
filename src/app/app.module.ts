@@ -24,6 +24,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { UserListComponent } from './user/list/user-list.component';
 import { UserHandleComponent } from './user/handle/user-handle.component';
 import { RecordComponent } from './record/record.component';
+import { PlayerViewComponent } from './record/player-view/player-view.component';
+import { VideoModalComponent } from './record/player-view/video.modal';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { RecordComponent } from './record/record.component';
     FileSelectDirective,
     UserListComponent,
     UserHandleComponent,
-    RecordComponent
+    RecordComponent,
+    PlayerViewComponent,
+    VideoModalComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,8 @@ import { RecordComponent } from './record/record.component';
   ],
   entryComponents: [
     ForgotPasswordComponent,
-    UserHandleComponent
+    UserHandleComponent,
+    VideoModalComponent
   ],
   bootstrap: [AppComponent]
 })
