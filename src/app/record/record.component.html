@@ -1,6 +1,40 @@
 <div class="table-header text-center">
     <h2> Gravações </h2>
-    <input #search class="row w-50 mt-2 mb-2 ml-auto mr-auto" type="text" placeholder="Pesquisar..." (keydown.enter)="onSearch(search.value)">
+    <form class="form-inline" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="col-3">
+            Usuário
+            <select class="form-control" formControlName="user">
+              <option value="0">Selecione</option>
+              <option *ngFor="let user of usersDropDown" value={{user.id}}>
+                {{user.name}}
+              </option>
+            </select>
+        </div>
+        
+        <div class="col-3">
+            Período: 
+            <div class="input-group">
+              <input class="form-control" formControlName="start" placeholder="dd/mm/yyyy" name="dateStart" [(ngModel)]="dateStartFilter" ngbDatepicker #dateStart="ngbDatepicker">
+              <div class="input-group-append">
+                  <span class="input-group-text" (click)="dateStart.toggle()">C</span>
+              </div>
+            </div>
+        </div>
+        <div class="col-3">
+            Até:
+            <div class="input-group">
+              <input class="form-control" formControlName="end" placeholder="dd/mm/yyyy" name="dateEnd" [(ngModel)]="dateEndFilter" ngbDatepicker #dateEnd="ngbDatepicker">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="dateEnd.toggle()">C</span>
+              </div>
+            </div>
+        </div>
+        <div class="col-3">
+          Ramal:
+          <input class="form-control" formControlName="ext" type="text">
+        </div>
+        <button type="submit" class="btn btn-success mt-3 ml-auto mr-auto"> Filtrar </button>
+      </form>
   </div>
   
   <div *ngIf="loading" class="row mt-4">
