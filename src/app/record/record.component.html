@@ -14,8 +14,8 @@
         <div class="col-3">
             Período: 
             <div class="input-group">
-              <input class="form-control" formControlName="start" placeholder="dd/mm/yyyy" name="dateStart" [(ngModel)]="dateStartFilter" ngbDatepicker #dateStart="ngbDatepicker">
-              <div class="input-group-append">
+              <input class="form-control" formControlName="start" [minDate]="dateMin" placeholder="dd/mm/yyyy" name="dateStart" [(ngModel)]="dateStartFilter" ngbDatepicker #dateStart="ngbDatepicker" (ngModelChange)="setStartEndDate($event)">
+              <div class="input-group-append pointer">
                   <span class="input-group-text" (click)="dateStart.toggle()">C</span>
               </div>
             </div>
@@ -23,8 +23,8 @@
         <div class="col-3">
             Até:
             <div class="input-group">
-              <input class="form-control" formControlName="end" placeholder="dd/mm/yyyy" name="dateEnd" [(ngModel)]="dateEndFilter" ngbDatepicker #dateEnd="ngbDatepicker">
-              <div class="input-group-append">
+              <input class="form-control" formControlName="end" [minDate]="dateMin" placeholder="dd/mm/yyyy" name="dateEnd" [(ngModel)]="dateEndFilter" ngbDatepicker #dateEnd="ngbDatepicker" (ngModelChange)="setStartEndDate($event)">
+              <div class="input-group-append pointer">
                 <span class="input-group-text" (click)="dateEnd.toggle()">C</span>
               </div>
             </div>

@@ -25,6 +25,7 @@ export class RecordComponent implements OnInit {
   source: LocalDataSource;
   usersDropDown: any = [];
   dateStartFilter: NgbDateStruct;
+  dateMin: NgbDateStruct;
   dateEndFilter: NgbDateStruct;
   form: FormGroup;
 
@@ -80,6 +81,10 @@ export class RecordComponent implements OnInit {
       { field: 'date', search: query  },
       { field: 'duration', search: query  }
     ], false);
+  }
+
+  setStartEndDate(event, target) {
+    this.dateMin = event;
   }
 
   onSubmit() {
