@@ -3,8 +3,8 @@
     <form class="form-inline" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="col-3">
             Usuário
-            <select class="form-control" formControlName="user">
-              <option value="0">Selecione</option>
+            <select class="form-control dropdown-inline" formControlName="user" [value]="0">
+              <option value="0" selected>Selecione</option>
               <option *ngFor="let user of usersDropDown" value={{user.id}}>
                 {{user.name}}
               </option>

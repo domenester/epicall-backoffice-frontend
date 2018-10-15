@@ -58,7 +58,7 @@ export class RecordComponent implements OnInit {
       );
 
       this.form = this.formBuilder.group({
-        user: [''],
+        user: ['0'],
         start: [''],
         end: [''],
         ext: ['']

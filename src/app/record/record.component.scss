@@ -5,3 +5,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 :host /deep/ ng2-smart-table {
   @extend %ng2-smart-table;
 }
+
+.dropdown-inline {
+  min-width: 100%;
+}
