@@ -49,12 +49,11 @@ export class UserHandleComponent implements OnInit {
 
     const handler = this.hasUserToHandle() ? 'update' : 'create';
 
-    this.userService[handler](userByForm(this.f))
+    this.userService[handler](userByForm(this.f)).pipe(first())
     .subscribe(
       res => {
         this.alertService.success(res.message);
-        this.activeModal.close(res.message);
-        this.loading = false;
+        return this.activeModal.close(res.message);
       },
       error => {
         this.alertService.error(error.error.message);

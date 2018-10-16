@@ -36,17 +36,15 @@ export class UserListComponent implements OnInit {
   }
 
   fetchUsers() {
-    this.userService.list().subscribe(
+    this.userService.list().pipe((res) => {
+      this.loading = false;
+      return res;
+    }).subscribe(
       users => {
-        console.log('users', users);
         this.users = users;
         this.source = new LocalDataSource(users);
-        this.loading = false;
       },
-      error => {
-        this.alertService.error(error.error.message);
-        this.loading = false;
-    });
+      error => this.alertService.error(error.error.message));
   }
 
   onSearch(query: string = '') {
@@ -59,15 +57,11 @@ export class UserListComponent implements OnInit {
     ], false);
   }
 
-  addUser() {
-    this.modalService.open(UserHandleComponent, { size: 'lg' });
-  }
-
-  onUserRowSelect(event) {
+  async startHandlingUser(user = null) {
     const activeModal = this.modalService.open(UserHandleComponent, { size: 'lg' });
-    activeModal.componentInstance.userToHandle = event.data;
-    activeModal.result.then( res => this.fetchUsers() )
-    .catch(err => err);
+    if (user) { activeModal.componentInstance.userToHandle = user; }
+    const modalResult = await activeModal.result.catch(err => err);
+    this.fetchUsers();
   }
 
 }
