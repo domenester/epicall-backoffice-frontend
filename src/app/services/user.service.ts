@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RequestOptions, RequestOptionsArgs } from '@angular/http';
 import { api as config } from '../config/configs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -16,7 +17,7 @@ export class UserService {
     }
 
     create(user: any) {
-      return this.http.post<any>(`${config.url}/user/new`, user);
+      return this.http.put<any>(`${config.url}/user/new`, user);
     }
 
     update(user: any) {
@@ -25,7 +26,10 @@ export class UserService {
     }
 
     remove(userId: string) {
-      return this.http.post<any>(`${config.url}/user/delete`, { userId });
+      return this.http.delete<any>(`${config.url}/user/delete`, {
+        observe: 'body',
+        params: { userId }
+      });
     }
 
     enums() {

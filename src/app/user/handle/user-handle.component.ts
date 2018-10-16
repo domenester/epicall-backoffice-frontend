@@ -28,10 +28,10 @@ export class UserHandleComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       name: [ this.userToHandle.first_name, [Validators.required, Validators.maxLength(100)]],
-      racf: [ this.userToHandle.racf, [Validators.required, Validators.maxLength(30)]],
-      ext: [ this.userToHandle.ext, [Validators.required, Validators.maxLength(10)]],
+      racf: [ this.userToHandle.username, [Validators.required, Validators.maxLength(30)]],
+      extension: [ this.userToHandle.extension, [Validators.required, Validators.maxLength(10)]],
       email: [ this.userToHandle.email, [Validators.required, Validators.email]],
-      section: [ this.userToHandle.section, [Validators.required, Validators.maxLength(100)]],
+      department: [ this.userToHandle.department, [Validators.required, Validators.maxLength(100)]],
       perfil: [ this.userToHandle.perfil, [Validators.required]]
     });
 
@@ -49,11 +49,11 @@ export class UserHandleComponent implements OnInit {
 
     const handler = this.hasUserToHandle() ? 'update' : 'create';
 
-    this.userService[handler](userByForm(this.f)).pipe(first())
+    this.userService[handler](userByForm(this.f))
     .subscribe(
       res => {
         this.alertService.success(res.message);
-        this.activeModal.dismiss(res.message);
+        this.activeModal.close(res.message);
         this.loading = false;
       },
       error => {
@@ -67,13 +67,15 @@ export class UserHandleComponent implements OnInit {
     return !(Object.keys(this.userToHandle).length === 0);
   }
 
-  removeUser() {
+  removeUser(event) {
+    event.preventDefault();
+    this.submitted = false;
     if ( !this.userToHandle.id ) { return this.alertService.error('Nenhum ID encontrado'); }
-    this.userService.remove(this.userToHandle.id).pipe(first())
+    this.userService.remove(this.userToHandle.id)
     .subscribe(
       res => {
         this.alertService.success(res.message);
-        this.activeModal.dismiss(res.message);
+        this.activeModal.close(res.message);
         this.loading = false;
       },
       error => {

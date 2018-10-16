@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, AlertService } from '../../services';
 import { LocalDataSource } from 'ng2-smart-table';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserHandleComponent } from '../handle/user-handle.component';
 
 @Component({
@@ -20,18 +20,8 @@ export class UserListComponent implements OnInit {
     private userService: UserService,
     private alertService: AlertService,
     private modalService: NgbModal) {
-      userService.list().subscribe(
-        users => {
-          console.log('users', users);
-          this.users = users;
-          this.source = new LocalDataSource(users);
-          this.loading = false;
-        },
-        error => {
-          this.alertService.error(error.error.message);
-          this.loading = false;
-        });
-    }
+      this.fetchUsers();
+  }
 
   ngOnInit() {
     this.tableSettings = {
@@ -43,6 +33,20 @@ export class UserListComponent implements OnInit {
         email: { title: 'Email', filter: false }
       }
     };
+  }
+
+  fetchUsers() {
+    this.userService.list().subscribe(
+      users => {
+        console.log('users', users);
+        this.users = users;
+        this.source = new LocalDataSource(users);
+        this.loading = false;
+      },
+      error => {
+        this.alertService.error(error.error.message);
+        this.loading = false;
+    });
   }
 
   onSearch(query: string = '') {
@@ -62,6 +66,8 @@ export class UserListComponent implements OnInit {
   onUserRowSelect(event) {
     const activeModal = this.modalService.open(UserHandleComponent, { size: 'lg' });
     activeModal.componentInstance.userToHandle = event.data;
+    activeModal.result.then( res => this.fetchUsers() )
+    .catch(err => err);
   }
 
 }
