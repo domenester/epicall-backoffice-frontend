@@ -36,15 +36,16 @@ export class UserListComponent implements OnInit {
   }
 
   fetchUsers() {
-    this.userService.list().pipe((res) => {
-      this.loading = false;
-      return res;
-    }).subscribe(
+    this.userService.list().subscribe(
       users => {
         this.users = users;
         this.source = new LocalDataSource(users);
+        this.loading = false;
       },
-      error => this.alertService.error(error.error.message));
+      error => {
+        this.alertService.error(error.error.message);
+        this.loading = false;
+    });
   }
 
   onSearch(query: string = '') {
