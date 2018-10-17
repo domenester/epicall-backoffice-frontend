@@ -46,7 +46,7 @@ export class SidebarComponent implements OnInit {
     let currentUser = localStorage.getItem('currentUser');
     try { currentUser = JSON.parse(currentUser); } catch (err) {}
     this.profilePhoto = (currentUser as any).profilePhoto;
-    this.username = `${(currentUser as any).first_name} ${(currentUser as any).last_name}`;
+    this.username = (currentUser as any).fullName;
   }
 
   triggerFileSelect() {

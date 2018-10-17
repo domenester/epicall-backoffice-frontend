@@ -27,7 +27,7 @@ export class UserHandleComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      name: [ this.userToHandle.first_name, [Validators.required, Validators.maxLength(100)]],
+      name: [ this.userToHandle.fullName, [Validators.required, Validators.maxLength(100)]],
       racf: [ this.userToHandle.username, [Validators.required, Validators.maxLength(30)]],
       extension: [ this.userToHandle.extension, [Validators.required, Validators.maxLength(10)]],
       email: [ this.userToHandle.email, [Validators.required, Validators.email]],

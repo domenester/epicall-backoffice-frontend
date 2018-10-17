@@ -30,7 +30,7 @@ export class UserListComponent implements OnInit {
       noDataMessage: 'Nenhum dado encontrado',
       columns: {
         username: { title: 'Username', filter: false },
-        first_name: { title: 'Nome', filter: false },
+        fullName: { title: 'Nome', filter: false },
         email: { title: 'Email', filter: false }
       }
     };
@@ -54,7 +54,7 @@ export class UserListComponent implements OnInit {
 
     this.source.setFilter([
       { field: 'username', search: query },
-      { field: 'first_name', search: query },
+      { field: 'fullName', search: query },
       { field: 'email', search: query  }
     ], false);
   }
