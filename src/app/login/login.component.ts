@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService, AlertService } from '../services';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { defaultAlertMessage } from '../utils/messages';
 
 @Component({
   selector: 'app-login',
@@ -56,7 +57,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.alertService.error(error.error.message);
+                    this.alertService.error(error.error.message || defaultAlertMessage);
                     this.loading = false;
                 });
     }

@@ -3,6 +3,7 @@ import { UserService, AlertService } from '../../services';
 import { LocalDataSource } from 'ng2-smart-table';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserHandleComponent } from '../handle/user-handle.component';
+import { defaultAlertMessage } from '../../utils/messages';
 
 @Component({
   selector: 'app-user-list',
@@ -43,7 +44,7 @@ export class UserListComponent implements OnInit {
         this.loading = false;
       },
       error => {
-        this.alertService.error(error.error.message);
+        this.alertService.error(error.error.message || defaultAlertMessage);
         this.loading = false;
     });
   }

@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { tableSettings } from './config/table-config';
 import { NgbDateBRParserFormatter, unixValue } from '../utils/date';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { defaultAlertMessage } from '../utils/messages';
 
 @Component({
   selector: 'app-record',
@@ -42,7 +43,7 @@ export class RecordComponent implements OnInit {
           this.loading = false;
         },
         error => {
-          this.alertService.error(error.error.message);
+          this.alertService.error(error.error.message || defaultAlertMessage);
           this.loading = false;
         }
       );
