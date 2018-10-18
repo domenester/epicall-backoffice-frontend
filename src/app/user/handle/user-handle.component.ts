@@ -15,7 +15,7 @@ export class UserHandleComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   loading = false;
-  perfils = [];
+  perfils = ['*', '**', '***'];
   userToHandle: any = {};
 
   constructor(

@@ -12,6 +12,9 @@ export class AuthenticationService {
         return this.http.post<any>(`${config.url}/login`, { username, password })
             .pipe(map(response => {
                 if (response) {
+                    console.log(response)
+                    response = JSON.parse(response)
+                    console.log(response)
                     localStorage.setItem('currentUser', JSON.stringify(response.data));
                 }
                 return response.data;

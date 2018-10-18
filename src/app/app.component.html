@@ -1,7 +1,9 @@
-<div [id]=" isLogged ? 'container' : ''">
-  <app-sidebar *ngIf="isLogged"></app-sidebar>
-  <div id="content">
-    <app-alert></app-alert>
-    <router-outlet></router-outlet>
+<div class="background-image">
+  <div [id]=" isLogged ? 'container' : ''">
+    <app-sidebar *ngIf="isLogged"></app-sidebar>
+    <div id="content">
+      <app-alert></app-alert>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

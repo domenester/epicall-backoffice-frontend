@@ -15,6 +15,7 @@ export class FileUploadService {
     uploader: FileUploader;
 
     public initializaUploader(path: string, itemAlias: string, autoUpload: boolean = false) {
+      console.log(localStorage.getItem('currentUser'))
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
       this.uploader = new FileUploader({
