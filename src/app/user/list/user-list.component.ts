@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, AlertService } from '../../services';
 import { LocalDataSource } from 'ng2-smart-table';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserHandleComponent } from '../handle/user-handle.component';
+import { defaultAlertMessage } from '../../utils/messages';
 
 @Component({
   selector: 'app-user-list',
@@ -20,48 +21,53 @@ export class UserListComponent implements OnInit {
     private userService: UserService,
     private alertService: AlertService,
     private modalService: NgbModal) {
-      userService.list().subscribe(
-        users => {
-          console.log('users', users);
-          this.users = users;
-          this.source = new LocalDataSource(users);
-          this.loading = false;
-        },
-        error => {
-          this.alertService.error(error.error.message);
-          this.loading = false;
-        });
-    }
+      this.fetchUsers();
+  }
 
   ngOnInit() {
     this.tableSettings = {
       actions: false,
       noDataMessage: 'Nenhum dado encontrado',
       columns: {
-        username: { title: 'Username', filter: false },
-        first_name: { title: 'Nome', filter: false },
-        email: { title: 'Email', filter: false }
+        username: { title: 'RACF', filter: false },
+        fullName: { title: 'Nome', filter: false },
+        email: { title: 'Email', filter: false },
+        extension: { title: 'Ramal', filter: false },
+        department: { title: 'Departamento', filter: false }
       }
     };
+  }
+
+  fetchUsers() {
+    this.userService.list().subscribe(
+      users => {
+        this.users = users;
+        this.source = new LocalDataSource(users);
+        this.loading = false;
+      },
+      error => {
+        this.alertService.error(error.error.message || defaultAlertMessage);
+        this.loading = false;
+    });
   }
 
   onSearch(query: string = '') {
     if (!query) { return this.source.reset(); }
 
     this.source.setFilter([
+      { field: 'fullName', search: query },
       { field: 'username', search: query },
-      { field: 'first_name', search: query },
-      { field: 'email', search: query  }
+      { field: 'email', search: query  },
+      { field: 'extension', search: query  },
+      { field: 'department', search: query  }
     ], false);
   }
 
-  addUser() {
-    this.modalService.open(UserHandleComponent, { size: 'lg' });
-  }
-
-  onUserRowSelect(event) {
+  async startHandlingUser(user = null) {
     const activeModal = this.modalService.open(UserHandleComponent, { size: 'lg' });
-    activeModal.componentInstance.userToHandle = event.data;
+    if (user) { activeModal.componentInstance.userToHandle = user; }
+    const modalResult = await activeModal.result.catch(err => err);
+    this.fetchUsers();
   }
 
 }

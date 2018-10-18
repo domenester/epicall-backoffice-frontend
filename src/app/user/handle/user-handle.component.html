@@ -24,10 +24,10 @@
         </div>
         <div class="form-group col-md-6">
             <label for="ext">Ramal</label>
-            <input (input)="submitted=false" type="text" maxlength="10" formControlName="ext" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ext.errors }" />
-            <div *ngIf="submitted && f.ext.errors" class="invalid-feedback">
-                <div *ngIf="f.ext.errors.required">Ramal é obrigatório</div>
-                <div *ngIf="f.ext.errors.max">Ramal muito extenso</div>
+            <input (input)="submitted=false" type="text" maxlength="10" formControlName="extension" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.extension.errors }" />
+            <div *ngIf="submitted && f.extension.errors" class="invalid-feedback">
+                <div *ngIf="f.extension.errors.required">Ramal é obrigatório</div>
+                <div *ngIf="f.extension.errors.max">Ramal muito extenso</div>
             </div>
         </div>
         <div class="form-group col-md-6">
@@ -40,10 +40,10 @@
         </div>
         <div class="form-group col-md-6">
             <label for="section">Seção</label>
-            <input (input)="submitted=false" type="text" formControlName="section" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.section.errors }" />
-            <div *ngIf="submitted && f.section.errors" class="invalid-feedback">
-                <div *ngIf="f.section.errors.required">Seção é obrigatório</div>
-                <div *ngIf="f.section.errors.maxLength">Seção muito extensa</div>
+            <input (input)="submitted=false" type="text" formControlName="department" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.department.errors }" />
+            <div *ngIf="submitted && f.department.errors" class="invalid-feedback">
+                <div *ngIf="f.department.errors.required">Seção é obrigatório</div>
+                <div *ngIf="f.department.errors.maxLength">Seção muito extensa</div>
             </div>
         </div>
         <div class="form-group col-md-6">
@@ -57,8 +57,8 @@
         </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-success"> {{hasUserToHandle() ? 'Salvar' : 'Enviar'}}</button>
-      <button *ngIf="hasUserToHandle()" (click)="removeUser()" class="btn btn-warning">Excluir</button>
+      <button type="submit" class="btn btn-success"> {{hasUserToHandle() ? 'Salvar' : 'Enviar'}}</button>
+      <button type="button"  *ngIf="hasUserToHandle()" (click)="removeUser($event);" class="btn btn-warning">Excluir</button>
       <button class="btn btn-danger" (click)="activeModal.dismiss('Operation cancelled')">Cancelar</button>
       <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
     </div>

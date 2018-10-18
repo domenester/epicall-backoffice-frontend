@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { AlertService, PasswordService } from '../services';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { defaultAlertMessage } from '../utils/messages';
 
 @Component({
   selector: 'app-change-password',
@@ -48,7 +49,7 @@ export class ChangePasswordComponent implements OnInit {
                   this.loading = false;
               },
               error => {
-                  this.alertService.error(error.error.message);
+                  this.alertService.error(error.error.message || defaultAlertMessage);
                   this.loading = false;
               });
   }

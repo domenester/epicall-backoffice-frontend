@@ -9,7 +9,7 @@ import { UserListComponent } from './user/list/user-list.component';
 import { RecordComponent } from './record/record.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'user/list', component: UserListComponent },
   { path: 'record/list', component: RecordComponent },
   { path: 'forgotPassword', component: ResetPasswordComponent },

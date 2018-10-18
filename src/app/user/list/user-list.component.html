@@ -1,7 +1,7 @@
 <div class="table-header text-center">
   <h2> Usuários </h2>
-  <input #search class="row w-50 mt-2 mb-2 ml-auto mr-auto" type="text" placeholder="Pesquisar..." (keydown.enter)="onSearch(search.value)">
-  <button (click)="addUser()" class="btn btn-success row"> + Novo Usuário </button>
+  <input #search class="row w-50 mt-2 mb-2 ml-auto mr-auto form-control" type="text" placeholder="Pesquisar..." (keydown.enter)="onSearch(search.value)">
+  <button (click)="startHandlingUser()" class="btn btn-success row"> + Novo Usuário </button>
 </div>
 
 <div *ngIf="loading" class="row mt-4">
@@ -13,5 +13,5 @@
   [ngClass]="'userListTable'"
   [settings]="tableSettings" 
   [source]="source"
-  (userRowSelect)="onUserRowSelect($event)">
+  (userRowSelect)="startHandlingUser($event.data)">
 </ng2-smart-table>

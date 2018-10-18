@@ -6,6 +6,7 @@ import { Router, NavigationStart } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   isLogged: boolean;
 

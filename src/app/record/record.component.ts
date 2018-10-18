@@ -1,47 +1,106 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-import { AlertService } from '../services';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlertService, RecordService, UserService } from '../services';
+import { PlayerViewComponent } from './player-view/player-view.component';
+import { NgbModal, NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
+import { tableSettings } from './config/table-config';
+import { NgbDateBRParserFormatter, unixValue } from '../utils/date';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { defaultAlertMessage } from '../utils/messages';
 
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
-  styleUrls: ['./record.component.scss']
+  styleUrls: ['./record.component.scss'],
+  entryComponents: [ PlayerViewComponent ],
+  providers: [
+    { provide: NgbDateParserFormatter, useClass: NgbDateBRParserFormatter}
+  ]
 })
 export class RecordComponent implements OnInit {
 
-  users: any;
+  records: any;
   loading = true;
-  tableSettings: object;
+  tableSettings: any;
   source: LocalDataSource;
+  usersDropDown: any = [];
+  dateStartFilter: NgbDateStruct;
+  dateMin: NgbDateStruct;
+  dateEndFilter: NgbDateStruct;
+  form: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private alertService: AlertService,
+    private recordService: RecordService,
+    private userService: UserService,
     private modalService: NgbModal) {
-      this.source = new LocalDataSource([]);
-      this.loading = false;
+      this.recordService.list().subscribe(
+        records => {
+          this.records = records;
+          this.source = new LocalDataSource(records);
+          this.loading = false;
+        },
+        error => {
+          this.alertService.error(error.error.message || defaultAlertMessage);
+          this.loading = false;
+        }
+      );
+
+      this.userService.list().subscribe(
+        users => {
+          this.usersDropDown = users.map( user => {
+            return {
+              id: user.id,
+              name: user.fullName
+             };
+          });
+        }
+      );
+
+      this.form = this.formBuilder.group({
+        user: ['0'],
+        start: [''],
+        end: [''],
+        ext: ['']
+      });
     }
 
+  get f() { return this.form.controls; }
+
   ngOnInit() {
-    this.tableSettings = {
-      actions: false,
-      noDataMessage: 'Nenhum dado encontrado',
-      columns: {
-        users: { title: 'Participantes', filter: false },
-        type: { title: 'Tipo', filter: false },
-        date: { title: 'Data', filter: false },
-        duration: { title: 'Duração', filter: false }
-      }
-    };
+    this.tableSettings = tableSettings();
   }
 
   onSearch(query: string = '') {
     if (!query) { return this.source.reset(); }
 
     this.source.setFilter([
-      { field: 'users', search: query },
+      { field: 'participants', search: query, filter: (p) => p[0].name },
       { field: 'type', search: query },
-      { field: 'date', search: query  }
+      { field: 'date', search: query  },
+      { field: 'duration', search: query  }
     ], false);
+  }
+
+  setStartEndDate(event, target) {
+    this.dateMin = event;
+  }
+
+  onSubmit() {
+    const userId = this.f.user.value;
+    let params = '?';
+    if (this.f.user.value) { params += `&userId=${this.f.user.value}`; }
+    if (this.f.start.value) { params += `&start=${unixValue(this.f.start.value)}`; }
+    if (this.f.end.value) { params += `&end=${unixValue(this.f.end.value)}`; }
+    if (this.f.ext.value) { params += `&ext=${this.f.ext.value}`; }
+    this.recordService.list(params).subscribe(
+      records => {
+        this.records = records;
+        this.form.reset();
+      },
+      error => this.alertService.error(error.error.message),
+    );
   }
 }
