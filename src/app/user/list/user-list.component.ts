@@ -29,9 +29,11 @@ export class UserListComponent implements OnInit {
       actions: false,
       noDataMessage: 'Nenhum dado encontrado',
       columns: {
-        username: { title: 'Username', filter: false },
+        username: { title: 'RACF', filter: false },
         fullName: { title: 'Nome', filter: false },
-        email: { title: 'Email', filter: false }
+        email: { title: 'Email', filter: false },
+        extension: { title: 'Ramal', filter: false },
+        department: { title: 'Departamento', filter: false }
       }
     };
   }
@@ -53,9 +55,11 @@ export class UserListComponent implements OnInit {
     if (!query) { return this.source.reset(); }
 
     this.source.setFilter([
-      { field: 'username', search: query },
       { field: 'fullName', search: query },
-      { field: 'email', search: query  }
+      { field: 'username', search: query },
+      { field: 'email', search: query  },
+      { field: 'extension', search: query  },
+      { field: 'department', search: query  }
     ], false);
   }
 

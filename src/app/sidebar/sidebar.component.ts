@@ -39,6 +39,8 @@ export class SidebarComponent implements OnInit {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.profilePhoto = `${this.profilePhoto.split('?')[0]}?changedAt=${(new Date()).getTime()}`;
       this.profilePictureSelectEl.nativeElement.value = '';
+      // This reload is for clean image cache
+      // window.location.reload();
     };
   }
 
