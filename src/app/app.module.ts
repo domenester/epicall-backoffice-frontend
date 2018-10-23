@@ -26,6 +26,7 @@ import { UserHandleComponent } from './user/handle/user-handle.component';
 import { RecordComponent } from './record/record.component';
 import { PlayerViewComponent } from './record/player-view/player-view.component';
 import { VideoModalComponent } from './record/player-view/modal/video.modal.component';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { VideoModalComponent } from './record/player-view/modal/video.modal.comp
     UserHandleComponent,
     RecordComponent,
     PlayerViewComponent,
-    VideoModalComponent
+    VideoModalComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

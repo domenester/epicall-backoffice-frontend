@@ -7,10 +7,12 @@ import { AuthGuard } from './auth/auth.guard';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { UserListComponent } from './user/list/user-list.component';
 import { RecordComponent } from './record/record.component';
+import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [
   { path: '', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'user/list', component: UserListComponent },
+  { path: 'report/list', component: ReportComponent },
   { path: 'record/list', component: RecordComponent },
   { path: 'forgotPassword', component: ResetPasswordComponent },
   { path: 'changePassword', component: ChangePasswordComponent },
