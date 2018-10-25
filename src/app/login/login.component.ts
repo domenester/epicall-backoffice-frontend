@@ -8,9 +8,9 @@ import { ForgotPasswordComponent } from '../forgot-password/forgot-password.comp
 import { defaultAlertMessage } from '../utils/messages';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 
 export class LoginComponent implements OnInit {
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
-        private modalService: NgbModal) {}
+        private modalService: NgbModal) { }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     openModal() {
-      this.modalService.open(ForgotPasswordComponent, { size: 'sm' });
+        this.modalService.open(ForgotPasswordComponent, { size: 'sm' });
     }
     onSubmit() {
         this.submitted = true;
@@ -50,15 +50,27 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error.error.message || defaultAlertMessage);
-                    this.loading = false;
-                });
+        this.authenticationService.login(this.f.username.value, this.f.password.value).then((data) => {
+            if (data.error) {
+                console.log(data.error);
+                this.alertService.error(data.error.message || defaultAlertMessage);
+                this.loading = false;
+            }
+            this.router.navigate([this.returnUrl]);
+        }).catch((error) => {
+            console.log('oiasd');
+            this.alertService.error(error.error.message || defaultAlertMessage);
+            this.loading = false;
+        });
+        // this.authenticationService.login(this.f.username.value, this.f.password.value)
+        //     .pipe(first())
+        //     .subscribe(
+        //         data => {
+        //             this.router.navigate([this.returnUrl]);
+        //         },
+        //         error => {
+        //             this.alertService.error(error.error.message || defaultAlertMessage);
+        //             this.loading = false;
+        //         });
     }
 }

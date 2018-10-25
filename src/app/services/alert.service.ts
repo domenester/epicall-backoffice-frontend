@@ -34,6 +34,7 @@ export class AlertService {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
         this.subject.next({ type: 'error', text: message });
         setTimeout(() => this.subject.next(), config.hideTime);
+        alert(message)
     }
 
     getMessage(): Observable<any> {
