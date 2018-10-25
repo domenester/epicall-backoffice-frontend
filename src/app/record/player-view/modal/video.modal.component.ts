@@ -17,4 +17,8 @@ export class VideoModalComponent implements OnInit {
 
   ngOnInit() {}
 
+  dismissModal(reason: string) {
+    this.activeModal.dismiss(reason);
+  }
+
 }

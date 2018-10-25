@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AuthenticationService, AlertService, FileUploadService, PasswordService, UserService, RecordService } from './services';
 
@@ -37,7 +37,6 @@ import { VideoModalComponent } from './record/player-view/modal/video.modal.comp
     ResetPasswordComponent,
     SidebarComponent,
     ChangePasswordComponent,
-    FileSelectDirective,
     UserListComponent,
     UserHandleComponent,
     RecordComponent,
@@ -49,6 +48,7 @@ import { VideoModalComponent } from './record/player-view/modal/video.modal.comp
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    FileUploadModule,
     ReactiveFormsModule,
     Ng2SmartTableModule,
     NgbModule

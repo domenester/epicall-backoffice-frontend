@@ -84,7 +84,7 @@ export class RecordComponent implements OnInit {
     ], false);
   }
 
-  setStartEndDate(event, target) {
+  setStartEndDate(event) {
     this.dateMin = event;
   }
 

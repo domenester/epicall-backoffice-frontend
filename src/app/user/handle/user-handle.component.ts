@@ -83,4 +83,8 @@ export class UserHandleComponent implements OnInit {
         this.loading = false;
       });
   }
+
+  dismissModal(reason: string) {
+    this.activeModal.dismiss(reason);
+  }
 }

@@ -47,4 +47,8 @@ export class ForgotPasswordComponent implements OnInit {
         this.loading = false;
       });
   }
+
+  dismissModal(reason: string) {
+    this.activeModal.dismiss(reason);
+  }
 }
