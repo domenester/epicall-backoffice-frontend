@@ -7,8 +7,8 @@ import { map } from 'rxjs/operators';
 export class ReportService {
     constructor(private http: HttpClient) { }
 
-    list() {
-        return this.http.get<any>(`${config.url}/report/list`)
+    list(body: any) {
+        return this.http.post<any>(`${config.url}/report/list`, body)
           .pipe(
             map(response => response.data)
           );

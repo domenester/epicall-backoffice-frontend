@@ -3,10 +3,13 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { UserService, AlertService, ReportService } from '../services';
 import { defaultAlertMessage } from '../utils/messages';
 import * as moment from 'moment';
-import { postgreeValuePrepareFunction, postgreeIntervalSort, postgreeFilter } from '../utils/ng-smart-table';
+import { postgreeFilter } from '../utils/ng-smart-table';
 import { UserDropdownComponent } from '../user/dropdown/user-dropdown.component';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { tableSettings } from './config/table-config';
+import { formatQueryString } from '../utils/';
+import { ngbDateStructToIsoDate } from '../utils/date';
 
 @Component({
   selector: 'app-report',
@@ -27,66 +30,34 @@ export class ReportComponent implements OnInit {
   dateMin: NgbDateStruct;
   dateEndFilter: NgbDateStruct;
   form: FormGroup;
+  types: Array< {id: string, name: string} > = [
+    { id: '0', name: 'Analítico' },
+    { id: '1', name: 'Consolidado' }
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
     private reportService: ReportService,
     private alertService: AlertService) {
-      this.fetchReports();
+      this.fetchReports({});
       this.form = this.formBuilder.group({
-        user: [[]],
-        start: [''],
-        end: [''],
-        ext: [''],
-        departament: [''],
-        type: ['']
+        users: [[]],
+        start: [],
+        end: [],
+        extension: [],
+        department: [],
+        grouping: []
       });
   }
 
   ngOnInit() {
-    this.tableSettings = {
-      actions: false,
-      noDataMessage: 'Nenhum dado encontrado',
-      columns: {
-        createdAt: { title: 'Data', filter: false, valuePrepareFunction: (createdAt) => {
-          return moment(createdAt).format('DD/MM/YYYY');
-        }},
-        loginCount: { title: 'Logins Únicos', filter: false },
-        timeLogged: {
-          title: 'Tempo Médio',
-          filter: false,
-          valuePrepareFunction: postgreeValuePrepareFunction,
-          compareFunction: postgreeIntervalSort
-        },
-        audioCount: { title: 'Iniciadas (Áudios)', filter: false },
-        audioDuration: {
-          title: 'Tempo Médio (Áudios)',
-          filter: false,
-          valuePrepareFunction: postgreeValuePrepareFunction,
-          compareFunction: postgreeIntervalSort
-        },
-        videoCount: { title: 'Iniciadas (Vídeos)', filter: false },
-        videoDuration: {
-          title: 'Tempo Médio (Vídeos)',
-          filter: false,
-          valuePrepareFunction: postgreeValuePrepareFunction,
-          compareFunction: postgreeIntervalSort
-        },
-        conferenceCount: { title: 'Iniciadas (Conf.)', filter: false },
-        conferenceDuration: {
-          title: 'Tempo Médio (Conf.)',
-          filter: false,
-          valuePrepareFunction: postgreeValuePrepareFunction,
-          compareFunction: postgreeIntervalSort
-        },
-      }
-    };
+    this.tableSettings = tableSettings();
   }
 
   get f() { return this.form.controls; }
 
-  fetchReports() {
-    this.reportService.list().subscribe(
+  fetchReports(filter: any) {
+    this.reportService.list(filter).subscribe(
       reports => {
         this.reports = reports;
         this.source = new LocalDataSource(reports);
@@ -118,7 +89,22 @@ export class ReportComponent implements OnInit {
     ], false);
   }
 
-  userSelected(e: any) { this.f.user.setValue(e.map( user => user.id )); }
+  userSelected(e: any) { this.f.users.setValue(e.map( user => user.id )); }
 
-  onSubmit() {}
+  onSubmit() {
+    const start = this.f.start.value ? ngbDateStructToIsoDate(this.f.start.value) : undefined;
+    const end = this.f.end.value ? ngbDateStructToIsoDate(this.f.end.value) : undefined;
+    const reportFilter = {
+      users: this.f.users.value || undefined,
+      extension: this.f.extension.value || undefined,
+      department: this.f.department.value || undefined,
+      start,
+      end,
+      grouping: this.f.grouping.value || undefined
+    };
+
+    this.loading = true;
+    this.fetchReports(reportFilter);
+    this.form.reset();
+  }
 }

@@ -7,11 +7,11 @@
     </div>
     <div class="col-6" style="display: grid;">
       Departamento:
-      <input class="form-control" formControlName="departament" type="text">
+      <input class="form-control" formControlName="department" type="text">
     </div>
     <div class="col-3">
       Ramal:
-      <input class="form-control" formControlName="ext" type="text">
+      <input class="form-control" formControlName="extension" type="text">
     </div>
     <div class="col-3">
         Período: 
@@ -31,9 +31,14 @@
           </div>
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-3" style="display: grid;">
       Tipo:
-      <input class="form-control" formControlName="type" type="text">
+      <select class="form-control dropdown-inline" formControlName="grouping" [value]="0">
+        <option value="0" selected>Selecione</option>
+        <option *ngFor="let type of types" value={{type.id}}>
+          {{type.name}}
+        </option>
+      </select>
     </div>
     <button type="submit" class="btn btn-success mt-3 ml-auto mr-auto"> Filtrar </button>
   </form>

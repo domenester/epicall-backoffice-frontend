@@ -35,6 +35,10 @@ export const unixValue = (d: NgbDateStruct) => {
   ).unix();
 };
 
+export const ngbDateStructToIsoDate = (d: NgbDateStruct) => {
+  return moment(`${d.year}/${d.month}/${d.day}`).toISOString();
+}
+
 export const postgreeIntervalMask = (data: any) => {
   return `${padNumber(data.hours || 0)}h ${padNumber(data.minutes || 0)}m ${padNumber(data.seconds || 0)}s`;
 };
