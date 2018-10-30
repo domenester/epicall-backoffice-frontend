@@ -7,7 +7,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 
-import { AuthenticationService, AlertService, FileUploadService, PasswordService, UserService, RecordService } from './services';
+import {
+  AuthenticationService,
+  AlertService,
+  FileUploadService,
+  PasswordService,
+  UserService,
+  RecordService,
+  ReportService
+} from './services';
 
 import { AuthGuard } from './auth/auth.guard';
 
@@ -27,6 +35,8 @@ import { RecordComponent } from './record/record.component';
 import { PlayerViewComponent } from './record/player-view/player-view.component';
 import { VideoModalComponent } from './record/player-view/modal/video.modal.component';
 import { ReportComponent } from './report/report.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { UserDropdownComponent } from './user/dropdown/user-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +51,7 @@ import { ReportComponent } from './report/report.component';
     FileSelectDirective,
     UserListComponent,
     UserHandleComponent,
+    UserDropdownComponent,
     RecordComponent,
     PlayerViewComponent,
     VideoModalComponent,
@@ -48,6 +59,7 @@ import { ReportComponent } from './report/report.component';
   ],
   imports: [
     BrowserModule,
+    NgMultiSelectDropDownModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -61,6 +73,7 @@ import { ReportComponent } from './report/report.component';
     AuthGuard,
     FileUploadService,
     PasswordService,
+    ReportService,
     RecordService,
     UserService
   ],

@@ -1,0 +1,10 @@
+<ng-multiselect-dropdown
+  [ngClass]="'user-dropdown'"
+  [placeholder]="'Selecione os usuários'"
+  [data]="dropdownList"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemHandle($event)"
+  (onDeSelect)="onItemHandle($event)"
+  [settings]="dropdownSettings"
+>
+</ng-multiselect-dropdown>

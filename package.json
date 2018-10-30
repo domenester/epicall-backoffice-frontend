@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --prod",
+    "dev": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -25,6 +26,7 @@
     "core-js": "^2.5.4",
     "material-icons": "^0.2.3",
     "moment": "^2.22.2",
+    "ng-multiselect-dropdown": "^0.2.3",
     "ng2-file-upload": "^1.3.0",
     "ng2-smart-table": "^1.3.5",
     "node": "^10.11.0",
