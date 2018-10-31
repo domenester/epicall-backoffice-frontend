@@ -1,50 +1,47 @@
 <div class="table-header text-center">
-    <h2> Gravações </h2>
-    <form class="form-inline" [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="col-3">
-            Usuário
-            <select class="form-control dropdown-inline" formControlName="user" [value]="0">
+  <h2> Gravações </h2>
+  <form class="form-inline" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="col-3">
+      Usuário
+      <select class="form-control dropdown-inline" formControlName="user" [value]="0">
               <option value="0" selected>Selecione</option>
               <option *ngFor="let user of usersDropDown" value={{user.id}}>
                 {{user.name}}
               </option>
             </select>
+    </div>
+
+    <div class="col-3">
+      Período:
+      <div class="input-group">
+        <input class="form-control" formControlName="start" [minDate]="dateMin" placeholder="dd/mm/yyyy" name="dateStart" [(ngModel)]="dateStartFilter"
+          ngbDatepicker #dateStart="ngbDatepicker" (ngModelChange)="setStartEndDate($event)">
+        <div class="input-group-append pointer">
+          <span class="input-group-text" (click)="dateStart.toggle()">C</span>
         </div>
-        
-        <div class="col-3">
-            Período: 
-            <div class="input-group">
-              <input class="form-control" formControlName="start" [minDate]="dateMin" placeholder="dd/mm/yyyy" name="dateStart" [(ngModel)]="dateStartFilter" ngbDatepicker #dateStart="ngbDatepicker" (ngModelChange)="setStartEndDate($event)">
-              <div class="input-group-append pointer">
-                  <span class="input-group-text" (click)="dateStart.toggle()">C</span>
-              </div>
-            </div>
+      </div>
+    </div>
+    <div class="col-3">
+      Até:
+      <div class="input-group">
+        <input class="form-control" formControlName="end" [minDate]="dateMin" placeholder="dd/mm/yyyy" name="dateEnd" [(ngModel)]="dateEndFilter"
+          ngbDatepicker #dateEnd="ngbDatepicker" (ngModelChange)="setStartEndDate($event)">
+        <div class="input-group-append pointer">
+          <span class="input-group-text" (click)="dateEnd.toggle()">C</span>
         </div>
-        <div class="col-3">
-            Até:
-            <div class="input-group">
-              <input class="form-control" formControlName="end" [minDate]="dateMin" placeholder="dd/mm/yyyy" name="dateEnd" [(ngModel)]="dateEndFilter" ngbDatepicker #dateEnd="ngbDatepicker" (ngModelChange)="setStartEndDate($event)">
-              <div class="input-group-append pointer">
-                <span class="input-group-text" (click)="dateEnd.toggle()">C</span>
-              </div>
-            </div>
-        </div>
-        <div class="col-3">
-          Ramal:
-          <input class="form-control" formControlName="ext" type="text">
-        </div>
-        <button type="submit" class="btn btn-success mt-3 ml-auto mr-auto"> Filtrar </button>
-      </form>
-  </div>
-  
-  <div *ngIf="loading" class="row mt-4">
-    <img class="m-auto" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-  </div>
-  
-  <ng2-smart-table 
-    #smartTable
-    *ngIf="!loading"
-    [ngClass]="'recordListTable'"
-    [settings]="tableSettings" 
-    [source]="source">
+      </div>
+    </div>
+    <div class="col-3">
+      Ramal:
+      <input class="form-control" formControlName="ext" type="text">
+    </div>
+    <button type="submit" class="btn btn-success mt-3 ml-auto mr-auto"> Filtrar </button>
+  </form>
+</div>
+
+<div *ngIf="loading" class="row mt-4">
+  <img class="m-auto" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+  />
+</div>
+  <ng2-smart-table class="table-scroll" #smartTable *ngIf="!loading" [ngClass]="'recordListTable'" [settings]="tableSettings" [source]="source">
   </ng2-smart-table>

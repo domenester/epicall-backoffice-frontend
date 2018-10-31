@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthenticationService, AlertService, FileUploadService } from '../services';
 import { Router, NavigationStart } from '@angular/router';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { api as apiConfig } from '../config/configs';
 
 @Component({

@@ -9,3 +9,10 @@ $material-icons-font-path: '~material-icons/iconfont/';
 .dropdown-inline {
   min-width: 100%;
 }
+
+.table-scroll {
+    display: block;
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
