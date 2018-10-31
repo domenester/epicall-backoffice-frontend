@@ -37,6 +37,9 @@ import { VideoModalComponent } from './record/player-view/modal/video.modal.comp
 import { ReportComponent } from './report/report.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UserDropdownComponent } from './user/dropdown/user-dropdown.component';
+import { MessageComponent } from './message/message.component';
+import { MessageService } from './services/message.service';
+import { TreeviewModule } from 'ngx-treeview';
 
 @NgModule({
   declarations: [
@@ -55,11 +58,13 @@ import { UserDropdownComponent } from './user/dropdown/user-dropdown.component';
     RecordComponent,
     PlayerViewComponent,
     VideoModalComponent,
-    ReportComponent
+    ReportComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
     NgMultiSelectDropDownModule.forRoot(),
+    TreeviewModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -72,6 +77,7 @@ import { UserDropdownComponent } from './user/dropdown/user-dropdown.component';
     AlertService,
     AuthGuard,
     FileUploadService,
+    MessageService,
     PasswordService,
     ReportService,
     RecordService,

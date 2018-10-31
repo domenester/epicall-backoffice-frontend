@@ -8,12 +8,14 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { UserListComponent } from './user/list/user-list.component';
 import { RecordComponent } from './record/record.component';
 import { ReportComponent } from './report/report.component';
+import { MessageComponent } from './message/message.component';
 
 const routes: Routes = [
   { path: '', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'user/list', component: UserListComponent },
   { path: 'report/list', component: ReportComponent },
   { path: 'record/list', component: RecordComponent },
+  { path: 'message/list', component: MessageComponent },
   { path: 'forgotPassword', component: ResetPasswordComponent },
   { path: 'changePassword', component: ChangePasswordComponent },
   { path: 'login', component: LoginComponent },
