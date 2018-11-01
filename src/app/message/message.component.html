@@ -7,16 +7,36 @@
   <img class="m-auto" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </div>
 
-<div class="p-3 row">
-  <div class="ngx-treeview col-4">
-    <ngx-treeview
-        [config]="treeConfig"
-        (selectedChange)="selectTreeView($event)"
-        [items]="treeItems">
-    </ngx-treeview>
+<div class="p-3 row message-content">
+  <div class="treeView col-4 p-0">
+    <mat-accordion *ngFor="let from of messages | keys" >
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{from}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul class="treeViewSubItems">
+          <li *ngFor="let to of messages[from] | keys" (click)="selectConversation(from, to)">
+            {{to}}
+          </li>
+        </ul>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
   
-  <div class="conversations col-8">
-  
+  <div class="conversations p-3 col-8">
+    <div class="row" *ngFor="let message of messagesDisplayed">
+      <div *ngIf="message.from === from" class="talk-bubble tri-left round">
+        <div class="talktext">
+          <p>{{message.message}}</p>
+        </div>
+      </div>
+      <div *ngIf="message.from === to" class="talk-bubble tri-right round">
+          <div class="talktext">
+            <p>{{message.message}}</p>
+          </div>
+        </div>
+    </div>
   </div>
 </div>

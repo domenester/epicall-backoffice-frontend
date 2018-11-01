@@ -1,14 +1,83 @@
-.ngx-treeview {
+.treeView {
   background-color: white;
-  padding: 15px;
+  overflow: auto;
 }
 
-:host /deep/ ngx-treeview {
-  .form-check-label {
-    cursor: pointer;
+ul.treeViewSubItems {
+  li:hover {
+    background-color: #ebf0f5 !important;
   }
-  
-  input.form-check-input {
-    display: none !important;
+  li {
+    padding: 5px 0px 5px 20px !important;
+    border-left-color: black !important;
+    border-left-style: solid !important;
+    border-radius: 0 !important;
+    border-width: 2px !important;
+    cursor: pointer !important;
   }
+}
+
+.talk-bubble {
+	margin: 15px 30px 15px 30px;
+  display: inline-block;
+  position: relative;
+	width: 200px;
+	height: auto;
+	background-color: #ffd475;
+}
+
+.conversations {
+  background-color: white;
+  z-index: 2;
+  overflow: auto;
+}
+
+%triangle-chat {
+  position: absolute;
+	width: 0;
+	height: 0;
+  left: auto;
+  top: 30px;
+	bottom: auto;
+	border: 12px solid;
+}
+
+.message-content {
+  max-height: 100%;
+  min-height: 100%;
+}
+
+.tri-right {
+  margin: 15px 30px 15px auto !important;
+}
+
+.tri-right:after{
+	content: ' ';
+	@extend %triangle-chat;
+  right: -20px;
+  border-color: #ffd475 transparent transparent #ffd475;
+}
+
+.tri-left {
+  background-color: #d1eaff !important;
+}
+
+.tri-left:after{
+	content: ' ';
+	@extend %triangle-chat;
+  right: 200px;
+	border-color: transparent #d1eaff #d1eaff transparent ;
+}
+
+.round{
+  border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+}
+
+.talktext {
+  padding: 1em;
+  text-align: left;
+  line-height: 1.5em;
+  word-break: break-all;
 }

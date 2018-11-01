@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { defaultAlertMessage } from '../utils/messages';
 import { AlertService } from '../services';
 import { MessageService } from '../services/message.service';
-import { TreeviewItem, TreeItem, TreeviewConfig } from 'ngx-treeview';
-import { treeViewFormat } from './utils/tree-view';
 
 @Component({
   selector: 'app-message',
@@ -13,9 +11,10 @@ import { treeViewFormat } from './utils/tree-view';
 export class MessageComponent implements OnInit {
 
   messages: any;
-  treeItems: TreeviewItem[];
   loading = true;
-  treeConfig: object;
+  messagesDisplayed: any;
+  from: string;
+  to: string;
 
   constructor(
     private messageService: MessageService,
@@ -23,21 +22,12 @@ export class MessageComponent implements OnInit {
       this.fetchMessages();
   }
 
-  ngOnInit() {
-    this.treeConfig = TreeviewConfig.create({
-        hasAllCheckBox: false,
-        hasFilter: false,
-        hasCollapseExpand: true,
-        decoupleChildFromParent: true,
-        maxHeight: 400
-    });
-  }
+  ngOnInit() {}
 
   fetchMessages() {
     this.messageService.list().subscribe(
       messages => {
         this.messages = messages;
-        this.treeItems = [treeViewFormat(messages)];
         this.loading = false;
       },
       error => {
@@ -46,9 +36,13 @@ export class MessageComponent implements OnInit {
     });
   }
 
-  selectTreeView(e) {
-    console.log('e', e);
+  selectConversation(from: string, to: string) {
+    this.from = from;
+    this.to = to;
+    this.messagesDisplayed = this.messages[from][to];
+    console.log('e', this.messagesDisplayed);
   }
+
   onSearch(query: string = '') {
 
   }

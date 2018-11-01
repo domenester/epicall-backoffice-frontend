@@ -39,7 +39,10 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UserDropdownComponent } from './user/dropdown/user-dropdown.component';
 import { MessageComponent } from './message/message.component';
 import { MessageService } from './services/message.service';
-import { TreeviewModule } from 'ngx-treeview';
+import {MatNativeDateModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DemoMaterialModule} from './_modules/material.module';
+import { KeysPipe } from './_pipes/keys.pipe';
 
 @NgModule({
   declarations: [
@@ -59,13 +62,16 @@ import { TreeviewModule } from 'ngx-treeview';
     PlayerViewComponent,
     VideoModalComponent,
     ReportComponent,
+    KeysPipe,
     MessageComponent
   ],
   imports: [
     BrowserModule,
     NgMultiSelectDropDownModule.forRoot(),
-    TreeviewModule.forRoot(),
     AppRoutingModule,
+    BrowserAnimationsModule,
+    MatNativeDateModule,
+    DemoMaterialModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
