@@ -3,3 +3,9 @@
 :host /deep/ ng2-smart-table {
   @extend %ng2-smart-table;
 }
+
+ng-multiselect-dropdown {
+  div {
+    background-color: white;
+  }
+}

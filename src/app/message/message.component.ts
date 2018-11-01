@@ -11,6 +11,7 @@ import { MessageService } from '../services/message.service';
 export class MessageComponent implements OnInit {
 
   messages: any;
+  messagesFiltered: any;
   loading = true;
   messagesDisplayed: any;
   from: string;
@@ -28,6 +29,7 @@ export class MessageComponent implements OnInit {
     this.messageService.list().subscribe(
       messages => {
         this.messages = messages;
+        this.messagesFiltered = messages;
         this.loading = false;
       },
       error => {
@@ -44,6 +46,12 @@ export class MessageComponent implements OnInit {
   }
 
   onSearch(query: string = '') {
-
+    const filtered = {};
+    Object.keys(this.messages).map( m => {
+      if (m.indexOf(query) > -1) {
+        filtered[m] = this.messages[m];
+      }
+    });
+    this.messagesFiltered = filtered;
   }
 }

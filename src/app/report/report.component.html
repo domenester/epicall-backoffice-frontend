@@ -3,7 +3,7 @@
   <form class="form-inline" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="col-6">
         Usuário
-        <app-user-dropdown (userSelected)="userSelected($event)"></app-user-dropdown>
+        <app-user-dropdown class="user-dropdown" (userSelected)="userSelected($event)"></app-user-dropdown>
     </div>
     <div class="col-6" style="display: grid;">
       Departamento:

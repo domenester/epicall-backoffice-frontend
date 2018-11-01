@@ -9,7 +9,7 @@
 
 <div class="p-3 row message-content">
   <div class="treeView col-4 p-0">
-    <mat-accordion *ngFor="let from of messages | keys" >
+    <mat-accordion *ngFor="let from of messagesFiltered | keys" >
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -17,7 +17,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <ul class="treeViewSubItems">
-          <li *ngFor="let to of messages[from] | keys" (click)="selectConversation(from, to)">
+          <li *ngFor="let to of messagesFiltered[from] | keys" (click)="selectConversation(from, to)">
             {{to}}
           </li>
         </ul>
@@ -25,18 +25,33 @@
     </mat-accordion>
   </div>
   
-  <div class="conversations p-3 col-8">
+  <div class="conversations p-3 col-8 text-center">
+    <i *ngIf="!messagesDisplayed" class="material-icons message-ghost" placement="center"> message </i>
     <div class="row" *ngFor="let message of messagesDisplayed">
       <div *ngIf="message.from === from" class="talk-bubble tri-left round">
         <div class="talktext">
           <p>{{message.message}}</p>
         </div>
+        <div class="message-details">
+          {{message.date | date: 'dd/MM/yyyy HH:mm:ss'}}
+          <svg *ngIf="message.read" width="16" height="15" x="2063" y="2076">
+            <path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" fill="#4fc3f7">
+            </path>
+          </svg>
+        </div>
       </div>
       <div *ngIf="message.from === to" class="talk-bubble tri-right round">
-          <div class="talktext">
-            <p>{{message.message}}</p>
-          </div>
+        <div class="talktext">
+          <p>{{message.message}}</p>
         </div>
+        <div class="message-details">
+          {{message.date | date: 'dd/MM/yyyy HH:mm:ss'}}
+          <svg *ngIf="message.read" width="16" height="15" x="2063" y="2076">
+            <path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" fill="#4fc3f7">
+            </path>
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
 </div>

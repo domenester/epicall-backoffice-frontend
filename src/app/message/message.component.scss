@@ -1,6 +1,28 @@
+$material-icons-font-path: '~material-icons/iconfont/';
+@import 'material-icons/iconfont/material-icons.scss';
+
+.message-ghost {
+  font-size: 200px;
+  color: #ececec;
+  margin-top: 150px;
+}
+
 .treeView {
   background-color: white;
   overflow: auto;
+}
+
+.talktext {
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.message-details {
+  color: gray;
+  font-size: 10px;
+  padding: 3px;
+  margin-left: 12px;
 }
 
 ul.treeViewSubItems {
