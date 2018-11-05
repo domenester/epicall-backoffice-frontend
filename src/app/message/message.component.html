@@ -8,7 +8,7 @@
 </div>
 
 <div class="p-3 row message-content">
-  <div class="treeView col-4 p-0">
+  <div class="treeView col-{{messagesFiltered ? '4' : '0'}} p-0">
     <mat-accordion *ngFor="let from of messagesFiltered | keys" >
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -25,8 +25,9 @@
     </mat-accordion>
   </div>
   
-  <div class="conversations p-3 col-8 text-center">
+  <div class="conversations p-3 col-{{messagesFiltered ? '8' : '12'}} text-center">
     <i *ngIf="!messagesDisplayed" class="material-icons message-ghost" placement="center"> message </i>
+    <div *ngIf="!messages" class=""> Nenhuma mensagem encontrada. </div>
     <div class="row" *ngFor="let message of messagesDisplayed">
       <div *ngIf="message.from === from" class="talk-bubble tri-left round">
         <div class="talktext">

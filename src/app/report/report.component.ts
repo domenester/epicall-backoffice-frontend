@@ -5,17 +5,20 @@ import { defaultAlertMessage } from '../utils/messages';
 import * as moment from 'moment';
 import { postgreeFilter } from '../utils/ng-smart-table';
 import { UserDropdownComponent } from '../user/dropdown/user-dropdown.component';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { tableSettings } from './config/table-config';
 import { formatQueryString } from '../utils/';
-import { ngbDateStructToIsoDate } from '../utils/date';
+import { ngbDateStructToIsoDate, NgbDateBRParserFormatter } from '../utils/date';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
   entryComponents: [UserDropdownComponent],
-  styleUrls: ['./report.component.scss']
+  styleUrls: ['./report.component.scss'],
+  providers: [
+    { provide: NgbDateParserFormatter, useClass: NgbDateBRParserFormatter}
+  ]
 })
 export class ReportComponent implements OnInit {
 
@@ -30,16 +33,14 @@ export class ReportComponent implements OnInit {
   dateMin: NgbDateStruct;
   dateEndFilter: NgbDateStruct;
   form: FormGroup;
-  types: Array< {id: string, name: string} > = [
-    { id: '0', name: 'Analítico' },
-    { id: '1', name: 'Consolidado' }
-  ];
+  types: Array< {id: string, name: string} >;
 
   constructor(
     private formBuilder: FormBuilder,
     private reportService: ReportService,
     private alertService: AlertService) {
       this.fetchReports({});
+      this.fetchGroupings();
       this.form = this.formBuilder.group({
         users: [[]],
         start: [],
@@ -62,6 +63,17 @@ export class ReportComponent implements OnInit {
         this.reports = reports;
         this.source = new LocalDataSource(reports);
         this.loading = false;
+      },
+      error => {
+        this.alertService.error(error.error.message || defaultAlertMessage);
+        this.loading = false;
+    });
+  }
+
+  fetchGroupings() {
+    this.reportService.enums().subscribe(
+      enums => {
+        this.types = enums.data.grouping.values.map( v => ({ id: v.key, name: v.label }));
       },
       error => {
         this.alertService.error(error.error.message || defaultAlertMessage);

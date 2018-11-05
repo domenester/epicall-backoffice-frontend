@@ -47,8 +47,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     let currentUser = localStorage.getItem('currentUser');
     try { currentUser = JSON.parse(currentUser); } catch (err) {}
-    // this.profilePhoto = (currentUser as any).profilePhoto;
-    this.profilePhoto = '';
+    this.profilePhoto = (currentUser as any).profilePhoto;
+    // this.profilePhoto = '';
     this.username = (currentUser as any).fullName;
   }
 

@@ -13,4 +13,11 @@ export class ReportService {
             map(response => response.data)
           );
     }
+
+    enums() {
+      return this.http.get<any>(`${config.url}/report/enums`)
+        .pipe(
+          map(response => response)
+        );
+    }
 }
