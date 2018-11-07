@@ -9,7 +9,9 @@ import { NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstra
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { tableSettings } from './config/table-config';
 import { formatQueryString } from '../utils/';
-import { ngbDateStructToIsoDate, NgbDateBRParserFormatter } from '../utils/date';
+import { ngbDateStructToIsoDate, NgbDateBRParserFormatter, postgreeIntervalMask } from '../utils/date';
+import { saveAs } from 'file-saver';
+import ReportJsonToCsv from './utils/json2csv';
 
 @Component({
   selector: 'app-report',
@@ -22,7 +24,7 @@ import { ngbDateStructToIsoDate, NgbDateBRParserFormatter } from '../utils/date'
 })
 export class ReportComponent implements OnInit {
 
-  reports: any;
+  reports: Array<any>;
   loading = true;
   tableSettings: object;
   source: LocalDataSource;
@@ -62,6 +64,7 @@ export class ReportComponent implements OnInit {
       reports => {
         this.reports = reports;
         this.source = new LocalDataSource(reports);
+        console.log(this.reports);
         this.loading = false;
       },
       error => {
@@ -118,5 +121,12 @@ export class ReportComponent implements OnInit {
     this.loading = true;
     this.fetchReports(reportFilter);
     this.form.reset();
+  }
+
+  exportToCsv() {
+    if (this.reports.length < 1) { this.alertService.error('Nenhum dado para exportar.'); }
+    const csv = ReportJsonToCsv(this.reports);
+    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
+    saveAs(blob, 'Relatórios.csv');
   }
 }
