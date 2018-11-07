@@ -10,8 +10,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { tableSettings } from './config/table-config';
 import { formatQueryString } from '../utils/';
 import { ngbDateStructToIsoDate, NgbDateBRParserFormatter, postgreeIntervalMask } from '../utils/date';
-import { saveAs } from 'file-saver';
-import ReportJsonToCsv from './utils/json2csv';
+import { exportToCsv, exportToPdf } from './utils';
 
 @Component({
   selector: 'app-report',
@@ -61,10 +60,10 @@ export class ReportComponent implements OnInit {
 
   fetchReports(filter: any) {
     this.reportService.list(filter).subscribe(
-      reports => {
+      async reports => {
         this.reports = reports;
         this.source = new LocalDataSource(reports);
-        console.log(this.reports);
+        // console.log('source', await this.source.getSort());
         this.loading = false;
       },
       error => {
@@ -125,8 +124,11 @@ export class ReportComponent implements OnInit {
 
   exportToCsv() {
     if (this.reports.length < 1) { this.alertService.error('Nenhum dado para exportar.'); }
-    const csv = ReportJsonToCsv(this.reports);
-    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
-    saveAs(blob, 'Relatórios.csv');
+    exportToCsv(this.reports);
+  }
+
+  exportToPdf() {
+    if (this.reports.length < 1) { this.alertService.error('Nenhum dado para exportar.'); }
+    exportToPdf(this.reports);
   }
 }
