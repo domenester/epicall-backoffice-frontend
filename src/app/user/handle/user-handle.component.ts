@@ -52,8 +52,8 @@ export class UserHandleComponent implements OnInit {
     this.userService[handler](userByForm(this.f)).pipe(first())
     .subscribe(
       res => {
-        this.alertService.success(res.message);
-        return this.activeModal.close(res.message);
+        this.alertService.success(res.body.message);
+        return this.activeModal.close(res.body.message);
       },
       error => {
         this.alertService.error(error.error.message);
@@ -73,8 +73,8 @@ export class UserHandleComponent implements OnInit {
     this.userService.remove(this.userToHandle.id)
     .subscribe(
       res => {
-        this.alertService.success(res.message);
-        this.activeModal.close(res.message);
+        this.alertService.success(res.body.message);
+        this.activeModal.close(res.body.message);
         this.loading = false;
       },
       error => {

@@ -45,7 +45,7 @@ export class ChangePasswordComponent implements OnInit {
           .pipe(first())
           .subscribe(
               data => {
-                  this.alertService.success(data.message);
+                  this.alertService.success(data.body.message);
                   this.loading = false;
               },
               error => {

@@ -14,7 +14,8 @@ import {
   PasswordService,
   UserService,
   RecordService,
-  ReportService
+  ReportService,
+  RequestService
 } from './services';
 
 import { AuthGuard } from './auth/auth.guard';
@@ -87,6 +88,7 @@ import { KeysPipe } from './_pipes/keys.pipe';
     PasswordService,
     ReportService,
     RecordService,
+    RequestService,
     UserService
   ],
   entryComponents: [

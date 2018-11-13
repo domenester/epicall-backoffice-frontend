@@ -3,19 +3,26 @@ import { api as config } from '../config/configs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { RequestService } from './request.service';
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: HttpClient) { }
+    constructor(
+      private http: HttpClient,
+      private request: RequestService
+    ) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`${config.url}/login`, { username, password })
-            .pipe(map(response => {
-                if (response) {
-                  localStorage.setItem('currentUser', JSON.stringify(response.data));
-                }
-                return response.data;
-            }));
+        return this.request.post(
+          `${config.url}/login`,
+          { username, password }
+        ).pipe(map(response => {
+              if (response) {
+                localStorage.setItem('currentUser', JSON.stringify(response.body.data));
+              }
+              return response;
+            })
+          );
     }
 
     logout() {

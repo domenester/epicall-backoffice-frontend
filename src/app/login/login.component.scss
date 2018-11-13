@@ -11,6 +11,7 @@ div.middle-box {
   top: 0;
   overflow: hidden;
   position: fixed;
+  z-index: -1;
   background-image: linear-gradient(180deg,#f58220,#ae5509);
   color: white;
 }
