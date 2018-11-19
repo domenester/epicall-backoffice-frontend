@@ -37,10 +37,9 @@ export class RequestService {
       const postObservable = this.http.post<any>(url, body, {
         headers: this.headers(),
         observe: 'response'
-      }).pipe(map(this.setToken), (err) => {
-        console.log('err', err);
-        return err;
-      });
+      }).pipe(
+        map(this.setToken)
+      );
 
       postObservable.subscribe(
         res => res,
