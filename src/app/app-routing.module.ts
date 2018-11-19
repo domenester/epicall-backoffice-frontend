@@ -9,6 +9,7 @@ import { UserListComponent } from './user/list/user-list.component';
 import { RecordComponent } from './record/record.component';
 import { ReportComponent } from './report/report.component';
 import { MessageComponent } from './message/message.component';
+import {APP_BASE_HREF} from '@angular/common';
 
 const routes: Routes = [
   { path: '', component: UserListComponent, canActivate: [AuthGuard] },
@@ -24,6 +25,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [{provide: APP_BASE_HREF, useValue : '/' }]
 })
 export class AppRoutingModule { }
