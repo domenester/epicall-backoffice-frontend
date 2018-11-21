@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import 'rxjs/add/operator/do';
 import { AuthenticationService } from './authentication.service';
 import { Router } from '@angular/router';
 import { AlertService } from './alert.service';
@@ -34,64 +35,52 @@ export class RequestService {
     }
 
     post(url: string, body: any) {
-      const postObservable = this.http.post<any>(url, body, {
+      return this.http.post<any>(url, body, {
         headers: this.headers(),
         observe: 'response'
       }).pipe(
         map(this.setToken)
-      );
-
-      postObservable.subscribe(
+      ).do(
         res => res,
         error => this.errorHandling(error)
       );
-
-      return postObservable;
     }
 
     get(url: string, params?: any) {
-      const getObservable = this.http.get<any>(url, {
+      return this.http.get<any>(url, {
         params,
         headers: this.headers(),
         observe: 'response'
       }).pipe(
         map(this.setToken)
-      );
-
-      getObservable.subscribe(
+      ).do(
         res => res,
         error => this.errorHandling(error)
       );
-
-      return getObservable;
     }
 
     put(url: string, body: any) {
-      const putObservable = this.http.put<any>(url, body, {
+      return this.http.put<any>(url, body, {
         headers: this.headers(),
         observe: 'response'
-      }).pipe(map(this.setToken));
-
-      putObservable.subscribe(
+      }).pipe(
+        map(this.setToken)
+      ).do(
         res => res,
         error => this.errorHandling(error)
       );
-
-      return putObservable;
     }
 
     delete(url: string, params?: any) {
-      const deleteObservable = this.http.delete<any>(url, {
+      return this.http.delete<any>(url, {
         headers: this.headers(),
         params,
         observe: 'response'
-      }).pipe(map(this.setToken));
-
-      deleteObservable.subscribe(
+      }).pipe(
+        map(this.setToken)
+      ).do(
         res => res,
         error => this.errorHandling(error)
       );
-
-      return deleteObservable;
     }
 }
