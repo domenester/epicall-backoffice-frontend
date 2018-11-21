@@ -5,13 +5,14 @@ import { declarations, imports, providers } from '../_dependencies/app.dependeci
 import { BaseRequestOptions, Http, XHRBackend } from '@angular/http';
 import { LoginComponent } from './login.component';
 import { UserListComponent } from '../user/list/user-list.component';
+import { Subscription } from 'rxjs';
 
 fdescribe('LoginComponent', () => {
 
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  beforeAll(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports, declarations, providers
     }).compileComponents();
@@ -23,7 +24,18 @@ fdescribe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create login component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should throw login form with empty fields', () => {
+    expect(component.onSubmit()).toBeUndefined();
+  });
+
+  it('should send login form with valid fields', () => {
+    component.loginForm.setValue({
+      username: 'daniel', password: '123456'
+    });
+    expect(component.onSubmit() instanceof Subscription).toBe(true);
   });
 });
